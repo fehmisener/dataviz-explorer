@@ -25,7 +25,7 @@ export default function Header() {
           flexDirection: 'column',
           alignItems: 'center',
           pt: { xs: 14, sm: 20 },
-          pb: { xs: 8, sm: 12 },
+          pb: { xs: 8, sm: 6 },
         }}
       >
         <Stack spacing={2} useFlexGap sx={{ width: { xs: '100%', sm: '70%' } }}>
@@ -53,6 +53,15 @@ export default function Header() {
             >
               Dataviz&minus;Explorer
             </Typography>
+          </Typography>
+          <Typography
+            textAlign="center"
+            color="text.secondary"
+            sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' } }}
+          >
+            React-powered tool for large CSV, database, and real-time
+            visualization. User-friendly interface, interactive plots, Node.js
+            backend for scalability.
           </Typography>
         </Stack>
       </Container>
