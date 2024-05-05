@@ -14,6 +14,32 @@ import AirIcon from '@mui/icons-material/Air';
 
 export default function DataInputSelection() {
   const [days, setDays] = useState([]);
+  const [csvData, setCSVData] = useState([]);
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+        const id = Date.now();
+        const data = parseCSV(content);
+        setCSVData((prevData) => [...prevData, { id, data }]);
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  const parseCSV = (csvContent) => {
+    const lines = csvContent.split(/\r\n|\n/);
+    const data = [];
+    lines.forEach((line) => {
+      const delimiter = line.includes(',') ? ',' : ';';
+      const values = line.split(delimiter);
+      data.push(values);
+    });
+    return data;
+  };
 
   const barCharts = (index) => {
     return (
@@ -76,13 +102,15 @@ export default function DataInputSelection() {
             size="large"
             aria-label="Basic button group"
           >
-            <Button
-              onClick={() => {
-                alert('clicked');
-              }}
-            >
+            <Button component="label">
               <UploadFileIcon sx={{ fontSize: '20px', mr: 1 }} />
               Upload CSV
+              <input
+                type="file"
+                accept=".csv"
+                hidden
+                onChange={handleFileUpload}
+              />
             </Button>
             <Button
               onClick={() => {
