@@ -8,6 +8,10 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 
 import { BarChart } from '@mui/x-charts/BarChart';
 
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import DatasetOutlinedIcon from '@mui/icons-material/DatasetOutlined';
+import AirIcon from '@mui/icons-material/Air';
+
 export default function DataInputSelection() {
   const [days, setDays] = useState([]);
 
@@ -77,6 +81,7 @@ export default function DataInputSelection() {
                 alert('clicked');
               }}
             >
+              <UploadFileIcon sx={{ fontSize: '20px', mr: 1 }} />
               Upload CSV
             </Button>
             <Button
@@ -84,13 +89,15 @@ export default function DataInputSelection() {
                 addChart();
               }}
             >
-              Database Connection{' '}
+              <DatasetOutlinedIcon sx={{ fontSize: '20px', mr: 1 }} />
+              Database Connection
             </Button>
             <Button
               onClick={() => {
                 alert('clicked');
               }}
             >
+              <AirIcon sx={{ fontSize: '20px', mr: 1 }} />
               Real-time Data Flow
             </Button>
           </ButtonGroup>
