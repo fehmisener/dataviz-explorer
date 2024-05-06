@@ -11,10 +11,51 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import DatasetOutlinedIcon from '@mui/icons-material/DatasetOutlined';
 import AirIcon from '@mui/icons-material/Air';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined';
+
+import LineChart from './Charts/LineChart';
+
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import LoadingButton from '@mui/lab/LoadingButton';
+
+import { Chart } from 'chart.js';
+
+import download from 'downloadjs';
+import { alpha } from '@mui/material';
+
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
+import ShowChartOutlinedIcon from '@mui/icons-material/ShowChartOutlined';
+import ScatterPlotOutlinedIcon from '@mui/icons-material/ScatterPlotOutlined';
 
 export default function DataInputSelection() {
   const [days, setDays] = useState([]);
   const [csvData, setCSVData] = useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [alignment, setAlignment] = React.useState('line');
+
+  const handleChange = (event, newAlignment) => {
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
+  };
+
+  function handleClick() {
+    setLoading(true);
+
+    const chart = Chart.getChart('test');
+
+    download(chart.toBase64Image(), 'chart.png', 'image/png');
+    setLoading(false);
+  }
+
+  function resetChartZoom() {
+    const chart = Chart.getChart('test');
+    chart.resetZoom();
+  }
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -100,7 +141,7 @@ export default function DataInputSelection() {
           <ButtonGroup
             variant="outlined"
             size="large"
-            aria-label="Basic button group"
+            aria-label="data-input-options-button-group"
           >
             <Button component="label">
               <UploadFileIcon sx={{ fontSize: '20px', mr: 1 }} />
@@ -130,6 +171,87 @@ export default function DataInputSelection() {
             </Button>
           </ButtonGroup>
         </Box>
+
+        <Box
+          sx={(theme) => ({
+            width: '100%',
+            borderRadius: '10px',
+            outline: '1px solid',
+            outlineColor:
+              theme.palette.mode === 'light'
+                ? alpha('#BFCCD9', 0.5)
+                : alpha('#9CCCFC', 0.2),
+            boxShadow:
+              theme.palette.mode === 'light'
+                ? `0 0 12px 8px ${alpha('#9CCCFC', 0.2)}`
+                : `0 0 24px 12px ${alpha('#033363', 0.3)}`,
+          })}
+        >
+          <Paper
+            sx={{
+              p: 2,
+              margin: 'auto',
+              flexGrow: 1,
+              /*
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+              */
+            }}
+          >
+            <Grid container spacing={2} direction="column" alignItems="stretch">
+              <Grid item>
+                <LineChart chartName="test" />
+              </Grid>
+              <Grid item container justifyContent="center" spacing={2}>
+                <Grid item>
+                  <ToggleButtonGroup
+                    color="primary"
+                    value={alignment}
+                    exclusive
+                    onChange={handleChange}
+                    sx={{
+                      height: '100%',
+                    }}
+                  >
+                    <ToggleButton value="line">
+                      <ShowChartOutlinedIcon />
+                    </ToggleButton>
+                    <ToggleButton value="scatter">
+                      <ScatterPlotOutlinedIcon />
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </Grid>
+                <Grid item>
+                  <ButtonGroup
+                    variant="outlined"
+                    size="large"
+                    aria-label="chart-button-group"
+                    sx={{
+                      height: '100%',
+                    }}
+                  >
+                    <Button
+                      startIcon={<ZoomOutMapOutlinedIcon />}
+                      onClick={resetChartZoom}
+                    >
+                      Reset Zoom
+                    </Button>
+
+                    <LoadingButton
+                      variant="outlined"
+                      startIcon={<FileDownloadOutlinedIcon />}
+                      onClick={handleClick}
+                      loading={loading}
+                    >
+                      Download Chart
+                    </LoadingButton>
+                  </ButtonGroup>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Box>
+
         {days.map((x, index) => barCharts(index))}
       </Container>
     </Box>
