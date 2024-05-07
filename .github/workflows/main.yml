@@ -1,6 +1,8 @@
 name: Deploy website
 
-on: [push]
+on:
+  pull_request:
+    branches: [main]
 
 env:
   BRANCH_NAME: ${{ github.ref_name }}
