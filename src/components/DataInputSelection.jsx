@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -11,11 +11,15 @@ import DatasetOutlinedIcon from '@mui/icons-material/DatasetOutlined';
 import AirIcon from '@mui/icons-material/Air';
 
 import ChartBox from './Charts/ChartBox';
+import ChartPopup from './Charts/ChartPopup';
 
 import { readFileAsync, parseCSV } from '../utils/data.js';
 
 export default function DataInputSelection() {
+  const fileInputRef = useRef(null);
   const [charts, setCharts] = useState([]);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const _handleFileUpload = async (event) => {
     const file = event.target.files[0];
@@ -23,7 +27,9 @@ export default function DataInputSelection() {
       const content = await readFileAsync(file);
       const data = parseCSV(content);
 
-      setCharts((prevData) => [...prevData, { data, type: 'line' }]);
+      setPopupOpen(true);
+      setCharts((prevCharts) => [...prevCharts, { data, type: 'line' }]);
+      setSelectedFile(file);
     }
   };
 
@@ -36,8 +42,31 @@ export default function DataInputSelection() {
   };
 
   const _handleRemoveChart = (index) => {
+    fileInputRef.current.value = null;
     setCharts((prevCharts) => prevCharts.filter((_, i) => i !== index));
   };
+
+  const _handleClosePopup = (status) => {
+    setPopupOpen(false);
+    if (status !== 1) {
+      setCharts((prevCharts) => prevCharts.slice(0, -1));
+    }
+  };
+
+  const handleChartCreate = (xAxis, selectedYAxes) => {
+    setCharts((prevCharts) =>
+      prevCharts.map((chart, i) =>
+        i === charts.length - 1
+          ? { ...chart, xAxis: xAxis, values: selectedYAxes }
+          : chart
+      )
+    );
+    _handleClosePopup(1);
+  };
+
+  const keyForPopup = useMemo(() => {
+    return selectedFile ? selectedFile.name : 'default';
+  }, [selectedFile]);
 
   return (
     <Box
@@ -82,6 +111,7 @@ export default function DataInputSelection() {
               <UploadFileIcon sx={{ fontSize: '20px', mr: 1 }} />
               Upload CSV
               <input
+                ref={fileInputRef}
                 type="file"
                 accept=".csv"
                 hidden
@@ -107,6 +137,7 @@ export default function DataInputSelection() {
           </ButtonGroup>
         </Box>
         {charts.length > 0 &&
+          !popupOpen &&
           charts.map((x, index) => (
             <ChartBox
               key={index}
@@ -118,6 +149,17 @@ export default function DataInputSelection() {
               onRemoveChart={() => _handleRemoveChart(index)}
             />
           ))}
+        {charts.length > 0 && (
+          <ChartPopup
+            key={keyForPopup}
+            open={popupOpen}
+            data={charts[charts.length - 1]?.data}
+            handleClose={(e) => _handleClosePopup(e)}
+            handleChartCreate={(xAxis, selectedYAxes) =>
+              handleChartCreate(xAxis, selectedYAxes)
+            }
+          />
+        )}
       </Container>
     </Box>
   );

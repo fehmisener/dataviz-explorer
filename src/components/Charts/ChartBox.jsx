@@ -52,17 +52,22 @@ export default function ChartBox({
   const _handleGenerateChart = (index) => {
     const chartName = `chart-${index}`;
 
-    const labels = chartData.data.slice(1).map((row) => row[0]);
+    const labels = chartData.data.slice(1).map((row) => row[chartData.xAxis]);
+    const datasets = chartData.values.map((value, i) => {
+      return {
+        label: `Dataset ${i + 1}`,
+        data: chartData.data.slice(1).map((row) => parseFloat(row[value])),
+        borderColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+          Math.random() * 256
+        )}, ${Math.floor(Math.random() * 256)})`,
+      };
+    });
+
     const data = {
       labels,
-      datasets: [
-        {
-          label: 'Dataset 1',
-          data: chartData.data.slice(1).map((row) => parseFloat(row[1])),
-          borderColor: 'rgb(255, 99, 132)',
-        },
-      ],
+      datasets,
     };
+
     if (chartData.type === 'line') {
       return <LineChart chartName={chartName} data={data} />;
     } else {
