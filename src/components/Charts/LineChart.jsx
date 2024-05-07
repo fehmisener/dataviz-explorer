@@ -25,12 +25,26 @@ ChartJS.register(
   zoomPlugin
 );
 
-export default function LineChart({ chartName, data }) {
+export default function LineChart({ chartName, data, xAxis }) {
   const options = {
     responsive: true,
     datasets: {
       line: {
         pointRadius: 0,
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: xAxis,
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Value',
+        },
       },
     },
     plugins: {

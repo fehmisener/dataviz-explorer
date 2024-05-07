@@ -25,9 +25,23 @@ ChartJS.register(
   zoomPlugin
 );
 
-export default function ScatterChart({ chartName, data }) {
+export default function ScatterChart({ chartName, data, xAxis }) {
   const options = {
     responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: xAxis,
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Value',
+        },
+      },
+    },
     plugins: {
       colors: {
         enaforceOverride: true,
