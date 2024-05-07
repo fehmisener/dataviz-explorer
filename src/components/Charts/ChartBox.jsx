@@ -21,6 +21,8 @@ import ScatterPlotOutlinedIcon from '@mui/icons-material/ScatterPlotOutlined';
 import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
+import { processHeaderName } from '../../utils/data';
+
 export default function ChartBox({
   index,
   chartData,
@@ -55,11 +57,8 @@ export default function ChartBox({
     const labels = chartData.data.slice(1).map((row) => row[chartData.xAxis]);
     const datasets = chartData.values.map((value, i) => {
       return {
-        label: `Dataset ${i + 1}`,
+        label: `${processHeaderName(chartData.data[0][value])}`,
         data: chartData.data.slice(1).map((row) => parseFloat(row[value])),
-        borderColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
-          Math.random() * 256
-        )}, ${Math.floor(Math.random() * 256)})`,
       };
     });
 
@@ -69,9 +68,21 @@ export default function ChartBox({
     };
 
     if (chartData.type === 'line') {
-      return <LineChart chartName={chartName} data={data} />;
+      return (
+        <LineChart
+          chartName={chartName}
+          data={data}
+          xAxis={processHeaderName(chartData.data[0][chartData.xAxis])}
+        />
+      );
     } else {
-      return <ScatterChart chartName={chartName} data={data} />;
+      return (
+        <ScatterChart
+          chartName={chartName}
+          data={data}
+          xAxis={processHeaderName(chartData.data[0][chartData.xAxis])}
+        />
+      );
     }
   };
 

@@ -12,6 +12,7 @@ import AirIcon from '@mui/icons-material/Air';
 
 import ChartBox from './Charts/ChartBox';
 import ChartPopup from './Charts/ChartPopup';
+import AnimatedChart from './Charts/AnimatedChart.jsx';
 
 import { readFileAsync, parseCSV } from '../utils/data.js';
 
@@ -136,6 +137,7 @@ export default function DataInputSelection() {
             </Button>
           </ButtonGroup>
         </Box>
+        {charts.length === 0 && <AnimatedChart />}
         {charts.length > 0 &&
           !popupOpen &&
           charts.map((x, index) => (

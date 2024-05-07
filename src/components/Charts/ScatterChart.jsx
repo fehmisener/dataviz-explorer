@@ -8,6 +8,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Colors,
 } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
 import zoomPlugin from 'chartjs-plugin-zoom';
@@ -17,16 +18,34 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  Colors,
   Title,
   Tooltip,
   Legend,
   zoomPlugin
 );
 
-export default function ScatterChart({ chartName, data }) {
+export default function ScatterChart({ chartName, data, xAxis }) {
   const options = {
     responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: xAxis,
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Value',
+        },
+      },
+    },
     plugins: {
+      colors: {
+        enaforceOverride: true,
+      },
       legend: {
         position: 'top',
       },

@@ -9,7 +9,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-import CircularProgress from '@mui/material/CircularProgress'; // Import CircularProgress
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { processHeaderName } from '../../utils/data';
 
 export default function ChartPopup({
   open,
@@ -23,18 +25,11 @@ export default function ChartPopup({
   const [showSecondYAxis, setShowSecondYAxis] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const _processHeaderName = (columnName) => {
-    const words = columnName
-      .split('_')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
-    return words.join(' ');
-  };
-
   const columns =
     data.length > 0
       ? data[0].map((column, index) => ({
           field: `${index}`, //TODO: Change to column number with integer
-          headerName: _processHeaderName(column),
+          headerName: processHeaderName(column),
           flex: 1,
         }))
       : [];
