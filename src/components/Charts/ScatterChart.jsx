@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Scatter } from 'react-chartjs-2';
 import zoomPlugin from 'chartjs-plugin-zoom';
 
 ChartJS.register(
@@ -23,21 +23,16 @@ ChartJS.register(
   zoomPlugin
 );
 
-export default function LineChart({ chartName, data }) {
+export default function ScatterChart({ chartName, data }) {
   const options = {
     responsive: true,
-    datasets: {
-      line: {
-        pointRadius: 0,
-      },
-    },
     plugins: {
       legend: {
         position: 'top',
       },
       title: {
         display: true,
-        text: `Line Chart`,
+        text: 'Scatter Chart',
       },
       zoom: {
         pan: {
@@ -53,5 +48,5 @@ export default function LineChart({ chartName, data }) {
       },
     },
   };
-  return <Line id={chartName} options={options} data={data} height={110} />;
+  return <Scatter id={chartName} options={options} data={data} height={110} />;
 }

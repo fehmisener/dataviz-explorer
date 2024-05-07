@@ -17,6 +17,7 @@
     "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material": "^5.15.16",
     "@mui/x-charts": "^7.3.2",
+    "@mui/x-data-grid": "^7.3.2",
     "chart.js": "^4.4.2",
     "chartjs-plugin-zoom": "^2.0.1",
     "downloadjs": "^1.4.7",
