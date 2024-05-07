@@ -57,9 +57,6 @@ export default function ChartBox({
       return {
         label: `Dataset ${i + 1}`,
         data: chartData.data.slice(1).map((row) => parseFloat(row[value])),
-        borderColor: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
-          Math.random() * 256
-        )}, ${Math.floor(Math.random() * 256)})`,
       };
     });
 

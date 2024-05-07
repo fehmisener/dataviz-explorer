@@ -8,6 +8,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Colors,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import zoomPlugin from 'chartjs-plugin-zoom';
@@ -17,6 +18,7 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  Colors,
   Title,
   Tooltip,
   Legend,
@@ -32,6 +34,9 @@ export default function LineChart({ chartName, data }) {
       },
     },
     plugins: {
+      colors: {
+        forceOverride: true,
+      },
       legend: {
         position: 'top',
       },
