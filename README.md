@@ -1,6 +1,13 @@
 # Dataviz Explorer
 
-DataViz Explorer: React-powered tool for large CSV, database, and real-time visualization. User-friendly interface, interactive plots, Node.js backend for scalability.
+<p align="center">
+   <img src="https://github.com/fehmisener/dataviz-explorer/actions/workflows/main.yml/badge.svg" alt="build">
+   <a href="https://sensational-fox-f31fd7.netlify.app">
+   <img src="https://api.netlify.com/api/v1/badges/bc438b2e-9f12-4bbe-987e-d36fcef20a2f/deploy-status">
+   </a>
+</p>
+
+DataViz Explorer: React-powered tool for large CSV, database, and real-time visualization. User-friendly interface, interactive plots, Node.js backend for scalability. **[Follow this link](https://sensational-fox-f31fd7.netlify.app)** to reach the live application.
 
 ![Gif](/docs/vite.config.gif)
 
