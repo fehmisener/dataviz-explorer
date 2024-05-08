@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  LineElement,
+} from 'chart.js';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { alpha } from '@mui/material';
+
+ChartJS.register(LinearScale, PointElement, LineElement);
 
 const AnimatedChart = () => {
   const [phase, setPhase] = useState(0);

@@ -1,71 +1,67 @@
 import React from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Colors,
-} from 'chart.js';
-import { Scatter } from 'react-chartjs-2';
-import zoomPlugin from 'chartjs-plugin-zoom';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Colors,
-  Title,
-  Tooltip,
-  Legend,
-  zoomPlugin
-);
+import Highcharts from 'highcharts';
+import DarkUnica from 'highcharts/themes/brand-dark';
+import HighchartsExporting from 'highcharts/modules/exporting';
+import HighchartsReact from 'highcharts-react-official';
+import HighchartsBoost from 'highcharts/modules/boost';
+
+DarkUnica(Highcharts);
+
+HighchartsBoost(Highcharts);
+HighchartsExporting(Highcharts);
 
 export default function ScatterChart({ chartName, data, xAxis }) {
-  const options = {
-    responsive: true,
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: xAxis,
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Value',
-        },
+  const optionsHighChart = {
+    boost: {
+      enabled: true,
+      seriesThreshold: 1,
+      debug: {
+        timeRendering: true,
       },
     },
-    plugins: {
-      colors: {
-        enaforceOverride: true,
+    exporting: {
+      enabled: true,
+    },
+    chart: {
+      type: 'scatter',
+      zooming: {
+        type: 'xy',
       },
-      legend: {
-        position: 'top',
+      panning: {
+        enabled: true,
+        type: 'xy',
       },
+      panKey: 'shift',
+    },
+    legend: {
+      align: 'center',
+      verticalAlign: 'top',
+    },
+    title: {
+      text: 'Scatter Chart',
+    },
+    xAxis: {
       title: {
-        display: true,
-        text: 'Scatter Chart',
-      },
-      zoom: {
-        pan: {
-          enabled: true,
-          mode: 'xy',
-        },
-        zoom: {
-          wheel: {
-            enabled: true,
-            modifierKey: 'ctrl',
-          },
-        },
+        text: xAxis,
       },
     },
+    yAxis: {
+      title: {
+        text: 'Value',
+      },
+    },
+    series: data.datasets.map((dataset) => ({
+      name: dataset.label,
+      data: dataset.data,
+    })),
   };
-  return <Scatter id={chartName} options={options} data={data} height={110} />;
+
+  return (
+    <HighchartsReact
+      id={chartName}
+      highcharts={Highcharts}
+      options={optionsHighChart}
+    />
+  );
 }

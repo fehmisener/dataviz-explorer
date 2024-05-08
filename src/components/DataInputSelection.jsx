@@ -14,7 +14,7 @@ import ChartBox from './Charts/ChartBox';
 import ChartPopup from './Charts/ChartPopup';
 import AnimatedChart from './Charts/AnimatedChart.jsx';
 
-import { readFileAsync, parseCSV } from '../utils/data.js';
+import Papa from 'papaparse';
 
 export default function DataInputSelection() {
   const fileInputRef = useRef(null);
@@ -25,12 +25,17 @@ export default function DataInputSelection() {
   const _handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      const content = await readFileAsync(file);
-      const data = parseCSV(content);
-
-      setPopupOpen(true);
-      setCharts((prevCharts) => [...prevCharts, { data, type: 'line' }]);
-      setSelectedFile(file);
+      Papa.parse(file, {
+        complete: (result) => {
+          const data = result.data;
+          setPopupOpen(true);
+          setCharts((prevCharts) => [...prevCharts, { data, type: 'line' }]);
+          setSelectedFile(file);
+        },
+        error: (error) => {
+          console.error('CSV parsing error:', error);
+        },
+      });
     }
   };
 
