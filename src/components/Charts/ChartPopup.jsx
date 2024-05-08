@@ -42,7 +42,13 @@ export default function ChartPopup({
   });
 
   const onChartCreate = async () => {
-    if (xAxis && yAxis1) {
+    if (
+      xAxis &&
+      yAxis1 &&
+      yAxis1 !== yAxis2 &&
+      xAxis !== yAxis1 &&
+      xAxis !== yAxis2
+    ) {
       const selectedYAxes = [yAxis1];
       if (showSecondYAxis && yAxis2) {
         selectedYAxes.push(yAxis2);
@@ -51,7 +57,9 @@ export default function ChartPopup({
       await handleChartCreate(xAxis, selectedYAxes);
       setLoading(false);
     } else {
-      alert('Please select both X-axis and Y-axis.');
+      alert(
+        'Please select both X-axis and Y-axis, and ensure Y-axis values are different.'
+      );
     }
   };
 
@@ -94,9 +102,7 @@ export default function ChartPopup({
                 },
               }}
             >
-              <MenuItem value="" disabled>
-                Select X-axis
-              </MenuItem>
+              <MenuItem value="">Select X-axis</MenuItem>
               {columns.map((column) => (
                 <MenuItem key={column.field} value={column.field}>
                   {column.headerName}
@@ -118,9 +124,7 @@ export default function ChartPopup({
                 },
               }}
             >
-              <MenuItem value="" disabled>
-                Select Y-axis
-              </MenuItem>
+              <MenuItem value="">Select Y-axis</MenuItem>
               {columns.map((column) => (
                 <MenuItem key={column.field} value={column.field}>
                   {column.headerName}
@@ -143,9 +147,7 @@ export default function ChartPopup({
                   },
                 }}
               >
-                <MenuItem value="" disabled>
-                  Select Other Value (Optional)
-                </MenuItem>
+                <MenuItem value="">Select Other Value (Optional)</MenuItem>
                 {columns.map((column) => (
                   <MenuItem key={column.field} value={column.field}>
                     {column.headerName}
