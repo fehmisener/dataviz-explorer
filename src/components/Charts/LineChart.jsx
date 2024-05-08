@@ -1,76 +1,53 @@
 import React from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Colors,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import zoomPlugin from 'chartjs-plugin-zoom';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Colors,
-  Title,
-  Tooltip,
-  Legend,
-  zoomPlugin
-);
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
+import HighchartsBoost from 'highcharts/modules/boost';
+HighchartsBoost(Highcharts);
 
 export default function LineChart({ chartName, data, xAxis }) {
-  const options = {
-    responsive: true,
-    datasets: {
-      line: {
-        pointRadius: 0,
+  const optionsHighChart = {
+    boost: {
+      enabled: true,
+      seriesThreshold: 2,
+      debug: {
+        timeRendering: true,
       },
     },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: xAxis,
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Value',
-        },
+    chart: {
+      type: 'line',
+      zooming: {
+        type: 'xy',
       },
     },
-    plugins: {
-      colors: {
-        forceOverride: true,
-      },
-      legend: {
-        position: 'top',
-      },
+    legend: {
+      align: 'center',
+      verticalAlign: 'top',
+    },
+    title: {
+      text: 'Line Chart',
+    },
+    xAxis: {
       title: {
-        display: true,
-        text: `Line Chart`,
-      },
-      zoom: {
-        pan: {
-          enabled: true,
-          mode: 'xy',
-        },
-        zoom: {
-          wheel: {
-            enabled: true,
-            modifierKey: 'ctrl',
-          },
-        },
+        text: xAxis,
       },
     },
+    yAxis: {
+      title: {
+        text: 'Value',
+      },
+    },
+    series: data.datasets.map((dataset) => ({
+      name: dataset.label,
+      data: dataset.data,
+    })),
   };
-  return <Line id={chartName} options={options} data={data} height={110} />;
+
+  return (
+    <HighchartsReact
+      id={chartName}
+      highcharts={Highcharts}
+      options={optionsHighChart}
+    />
+  );
 }
