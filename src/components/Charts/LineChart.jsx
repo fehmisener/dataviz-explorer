@@ -1,9 +1,12 @@
 import React from 'react';
 
 import Highcharts from 'highcharts';
+import DarkUnica from 'highcharts/themes/brand-dark';
 import HighchartsExporting from 'highcharts/modules/exporting';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsBoost from 'highcharts/modules/boost';
+
+DarkUnica(Highcharts);
 
 HighchartsBoost(Highcharts);
 HighchartsExporting(Highcharts);
