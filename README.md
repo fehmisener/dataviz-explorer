@@ -1,7 +1,7 @@
 # Dataviz Explorer
 
 <p align="center">
-   <img src="https://github.com/fehmisener/dataviz-explorer/actions/workflows/main.yml/badge.svg" alt="build">
+   <img src="https://github.com/fehmisener/dataviz-explorer/actions/workflows/main.yml/badge.svg?branch=develop" alt="build">
    <a href="https://sensational-fox-f31fd7.netlify.app">
    <img src="https://api.netlify.com/api/v1/badges/bc438b2e-9f12-4bbe-987e-d36fcef20a2f/deploy-status">
    </a>
