@@ -9,7 +9,7 @@ export default function LineChart({ chartName, data, xAxis }) {
   const optionsHighChart = {
     boost: {
       enabled: true,
-      seriesThreshold: 2,
+      seriesThreshold: 1,
       debug: {
         timeRendering: true,
       },
@@ -19,6 +19,11 @@ export default function LineChart({ chartName, data, xAxis }) {
       zooming: {
         type: 'xy',
       },
+      panning: {
+        enabled: true,
+        type: 'xy',
+      },
+      panKey: 'shift',
     },
     legend: {
       align: 'center',
