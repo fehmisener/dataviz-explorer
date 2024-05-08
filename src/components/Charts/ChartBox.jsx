@@ -18,8 +18,6 @@ import { alpha } from '@mui/material';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import ShowChartOutlinedIcon from '@mui/icons-material/ShowChartOutlined';
 import ScatterPlotOutlinedIcon from '@mui/icons-material/ScatterPlotOutlined';
-import ZoomOutMapOutlinedIcon from '@mui/icons-material/ZoomOutMapOutlined';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
 import { processHeaderName } from '../../utils/data';
 
@@ -29,22 +27,6 @@ export default function ChartBox({
   onChartTypeChange,
   onRemoveChart,
 }) {
-  const [loading, setLoading] = React.useState(false);
-
-  function _resetChartZoom(chartId) {
-    const chart = Chart.getChart(`chart-${chartId}`);
-    chart.resetZoom();
-  }
-
-  function _downloadChart(chartId) {
-    setLoading(true);
-
-    const chart = Chart.getChart(`chart-${chartId}`);
-
-    download(chart.toBase64Image(), 'chart.png', 'image/png');
-    setLoading(false);
-  }
-
   const _handleChartTypeChange = (event, index, newType) => {
     if (newType !== null) {
       onChartTypeChange(newType);
@@ -143,26 +125,11 @@ export default function ChartBox({
                 }}
               >
                 <Button
-                  startIcon={<ZoomOutMapOutlinedIcon />}
-                  onClick={() => _resetChartZoom(index)}
-                >
-                  Reset Zoom
-                </Button>
-                <Button
                   startIcon={<ClearOutlinedIcon />}
                   onClick={() => onRemoveChart()}
                 >
                   Remove Chart
                 </Button>
-
-                <LoadingButton
-                  variant="outlined"
-                  startIcon={<FileDownloadOutlinedIcon />}
-                  onClick={() => _downloadChart(index)}
-                  loading={loading}
-                >
-                  Download Chart
-                </LoadingButton>
               </ButtonGroup>
             </Grid>
           </Grid>

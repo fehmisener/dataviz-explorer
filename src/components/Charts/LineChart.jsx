@@ -1,76 +1,67 @@
 import React from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Colors,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import zoomPlugin from 'chartjs-plugin-zoom';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Colors,
-  Title,
-  Tooltip,
-  Legend,
-  zoomPlugin
-);
+import Highcharts from 'highcharts';
+import DarkUnica from 'highcharts/themes/brand-dark';
+import HighchartsExporting from 'highcharts/modules/exporting';
+import HighchartsReact from 'highcharts-react-official';
+import HighchartsBoost from 'highcharts/modules/boost';
+
+DarkUnica(Highcharts);
+
+HighchartsBoost(Highcharts);
+HighchartsExporting(Highcharts);
 
 export default function LineChart({ chartName, data, xAxis }) {
-  const options = {
-    responsive: true,
-    datasets: {
-      line: {
-        pointRadius: 0,
+  const optionsHighChart = {
+    boost: {
+      enabled: true,
+      seriesThreshold: 1,
+      debug: {
+        timeRendering: true,
       },
     },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: xAxis,
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Value',
-        },
-      },
+    exporting: {
+      enabled: true,
     },
-    plugins: {
-      colors: {
-        forceOverride: true,
+    chart: {
+      type: 'line',
+      zooming: {
+        type: 'xy',
       },
-      legend: {
-        position: 'top',
+      panning: {
+        enabled: true,
+        type: 'xy',
       },
+      panKey: 'shift',
+    },
+    legend: {
+      align: 'center',
+      verticalAlign: 'top',
+    },
+    title: {
+      text: 'Line Chart',
+    },
+    xAxis: {
       title: {
-        display: true,
-        text: `Line Chart`,
-      },
-      zoom: {
-        pan: {
-          enabled: true,
-          mode: 'xy',
-        },
-        zoom: {
-          wheel: {
-            enabled: true,
-            modifierKey: 'ctrl',
-          },
-        },
+        text: xAxis,
       },
     },
+    yAxis: {
+      title: {
+        text: 'Value',
+      },
+    },
+    series: data.datasets.map((dataset) => ({
+      name: dataset.label,
+      data: dataset.data,
+    })),
   };
-  return <Line id={chartName} options={options} data={data} height={110} />;
+
+  return (
+    <HighchartsReact
+      id={chartName}
+      highcharts={Highcharts}
+      options={optionsHighChart}
+    />
+  );
 }
