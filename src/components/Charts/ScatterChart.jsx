@@ -14,6 +14,9 @@ export default function ScatterChart({ chartName, data, xAxis }) {
         timeRendering: true,
       },
     },
+    exporting: {
+      enabled: true,
+    },
     chart: {
       type: 'scatter',
       zooming: {

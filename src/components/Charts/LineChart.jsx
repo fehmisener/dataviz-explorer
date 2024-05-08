@@ -1,9 +1,12 @@
 import React from 'react';
 
 import Highcharts from 'highcharts';
+import HC_exporting from 'highcharts/modules/exporting';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsBoost from 'highcharts/modules/boost';
+
 HighchartsBoost(Highcharts);
+HC_exporting(Highcharts);
 
 export default function LineChart({ chartName, data, xAxis }) {
   const optionsHighChart = {
@@ -13,6 +16,9 @@ export default function LineChart({ chartName, data, xAxis }) {
       debug: {
         timeRendering: true,
       },
+    },
+    exporting: {
+      enabled: true,
     },
     chart: {
       type: 'line',
