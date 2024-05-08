@@ -1,9 +1,12 @@
 import React from 'react';
 
 import Highcharts from 'highcharts';
+import HighchartsExporting from 'highcharts/modules/exporting';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsBoost from 'highcharts/modules/boost';
+
 HighchartsBoost(Highcharts);
+HighchartsExporting(Highcharts);
 
 export default function ScatterChart({ chartName, data, xAxis }) {
   const optionsHighChart = {
