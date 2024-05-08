@@ -5,11 +5,13 @@ import DarkUnica from 'highcharts/themes/brand-dark';
 import HighchartsExporting from 'highcharts/modules/exporting';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsBoost from 'highcharts/modules/boost';
+import HighchartsZoom from 'highcharts/modules/mouse-wheel-zoom';
 
 DarkUnica(Highcharts);
 
 HighchartsBoost(Highcharts);
 HighchartsExporting(Highcharts);
+HighchartsZoom(Highcharts);
 
 export default function ScatterChart({ chartName, data, xAxis }) {
   const optionsHighChart = {
@@ -24,9 +26,11 @@ export default function ScatterChart({ chartName, data, xAxis }) {
       enabled: true,
     },
     chart: {
+      animation: false,
       type: 'scatter',
       zooming: {
         type: 'xy',
+        mouseWheel: true,
       },
       panning: {
         enabled: true,
