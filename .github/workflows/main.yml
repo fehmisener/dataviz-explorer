@@ -22,25 +22,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
-
-      - name: Install Netlify
-        run: npm install netlify-cli@17.10.1 -g
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Build project
-        run: npm run build
+      - name: 'Test'
+        run: npx vitest --coverage.enabled true
 
-      - name: Deploy to Netlify
-        id: netlify_deploy
-        run: |
-          prod_flag=""
-          if [ "$BRANCH_NAME" = "main" ]; then prod_flag="--prod"; fi
-          netlify deploy \
-            --dir dist \
-            --site ${{ secrets.NETLIFY_SITE_ID }} \
-            --auth ${{ secrets.NETLIFY_API_TOKEN }} \
-            $prod_flag \
-            > deploy_output.txt
+      - name: 'Report Coverage'
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
