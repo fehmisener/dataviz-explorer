@@ -1,7 +1,5 @@
-import React from 'react';
-import download from 'downloadjs';
+import React, { useState } from 'react';
 
-import { Chart } from 'chart.js';
 import LineChart from './LineChart';
 import ScatterChart from './ScatterChart';
 
@@ -9,12 +7,17 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import LoadingButton from '@mui/lab/LoadingButton';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Typography from '@mui/material/Typography';
 
 import { alpha } from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import ShowChartOutlinedIcon from '@mui/icons-material/ShowChartOutlined';
 import ScatterPlotOutlinedIcon from '@mui/icons-material/ScatterPlotOutlined';
@@ -27,6 +30,8 @@ export default function ChartBox({
   onChartTypeChange,
   onRemoveChart,
 }) {
+  const [openInfo, setOpenInfo] = useState(false);
+
   const _handleChartTypeChange = (event, index, newType) => {
     if (newType !== null) {
       onChartTypeChange(newType);
@@ -66,6 +71,14 @@ export default function ChartBox({
         />
       );
     }
+  };
+
+  const handleInfoOpen = () => {
+    setOpenInfo(true);
+  };
+
+  const handleInfoClose = () => {
+    setOpenInfo(false);
   };
 
   return (
@@ -130,11 +143,51 @@ export default function ChartBox({
                 >
                   Remove Chart
                 </Button>
+                <Button
+                  startIcon={<InfoOutlinedIcon />}
+                  onClick={handleInfoOpen}
+                >
+                  How to Use
+                </Button>
               </ButtonGroup>
             </Grid>
           </Grid>
         </Grid>
       </Paper>
+      <Dialog open={openInfo} onClose={handleInfoClose}>
+        <DialogTitle>How to Use</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            - <strong>Zoom In/Out:</strong> Use the mouse wheel to zoom in or
+            out on the chart. Or, with a mouse pointer, the zooming is performed
+            by dragging out a rectangle in the chart. When zooming, a button
+            appears that lets the user zoom out.
+          </Typography>
+          <Box mt={2} />
+          <Typography variant="body1">
+            - <strong>Pan:</strong> Click and drag on the chart while holding
+            the Shift key to pan around and explore different areas.
+          </Typography>
+          <Box mt={2} />
+          <Typography variant="body1">
+            - <strong>Download Screenshot:</strong> Use the context button with
+            a menu located in the top right corner of the chart to download the
+            chart in various formats (PNG, JPEG, PDF, SVG).
+          </Typography>
+          <Box mt={2} />
+          <Typography variant="body1">
+            - <strong>Change Plot Type:</strong> You can change the plot type
+            between line and scatter. Use the toggle buttons provided below the
+            chart to switch between the plot types.
+          </Typography>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleInfoClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
