@@ -9,7 +9,7 @@
 
 DataViz Explorer: React-powered tool for large CSV, database, and real-time visualization. User-friendly interface, interactive plots, Node.js backend for scalability. **[Follow this link](https://sensational-fox-f31fd7.netlify.app)** to reach the live application.
 
-![Gif](/docs/vite.config.gif)
+![Gif](/docs/demo.gif)
 
 ## Overview
 
@@ -19,51 +19,51 @@ This application is a powerful tool for handling large CSV files, visualizing da
 
 - **CSV Handling**: Upload and process large CSV files effortlessly.
 - **Interactive Plots**: Create dynamic charts and graphs to visualize your data.
+
+  - You can view the data as a datagrid table before displaying it
+  - You can generate more than one chart on the same page.
+  - You can change the type of charts, select the columns to be visualized.
+  - Zooming and panning is available, you can also download the generated charts in different formats.
+
 - **Real-Time Updates**: Receive live updates as data changes (Not Yet).
-- **User-Friendly Interface**: Intuitive design for easy navigation.
-- **Scalable Backend**: Powered by Node.js for scalability and performance.
+- **Database Visualization**: Create charts from the database (Not Yet).
 
 ## Setup Instructions
 
+### Front-end Applicaiton
+
 1. **Clone the Repository**:
 
-   ```
-   git clone https://github.com/your-username/react-csv-visualization-tool.git
-   cd react-csv-visualization-tool
+   ```git
+   git clone https://github.com/fehmisener/dataviz-explorer.git
+   cd dataviz-explorer
    ```
 
 2. **Install Dependencies**:
 
-   ```
+   ```bash
    npm install
    ```
 
-3. **Configure Backend**:
-
-   - Set up your Node.js backend (e.g., using Express or Fastify).
-   - Connect to a database (e.g., MongoDB, PostgreSQL, or MySQL) for storing CSV data.
-
-4. **Environment Variables**:
-
-   - Create a `.env` file with necessary environment variables (e.g., database credentials, API keys).
-
-5. **Start the Development Server**:
+3. **Start the Aplication**:
 
    ```bash
    npm run dev
    ```
 
-6. **Build for Production**:
+4. **Build for Production**:
 
    ```bash
    npm run build
    ```
 
-7. **Run in Production Mode**:
+5. **Run in Production Mode**:
 
    ```bash
    npm start
    ```
+
+### Back-end Applicaiton
 
 ## Dependencies
 
