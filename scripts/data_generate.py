@@ -16,7 +16,7 @@ def generate_data(filename, num_points):
 
 
 if __name__ == "__main__":
-    num_points = 1000000
+    num_points = 250000
     filename = "data.csv"
     generate_data(filename, num_points)
     print(f"CSV file with {num_points} data points generated successfully: {filename}")
