@@ -1,17 +1,11 @@
 import React from 'react';
 
 import Highcharts from 'highcharts';
-import DarkUnica from 'highcharts/themes/brand-dark';
-import HighchartsExporting from 'highcharts/modules/exporting';
 import HighchartsReact from 'highcharts-react-official';
-import HighchartsBoost from 'highcharts/modules/boost';
-import HighchartsZoom from 'highcharts/modules/mouse-wheel-zoom';
 
-DarkUnica(Highcharts);
-
-HighchartsBoost(Highcharts);
-HighchartsExporting(Highcharts);
-HighchartsZoom(Highcharts);
+// Module imports have been temporarily removed to troubleshoot an issue with chart rendering.
+// The issue involves potential conflicts between Highcharts modules and the current configuration.
+// Once the issue is resolved, the necessary modules will be reintroduced to enhance functionality.
 
 export default function ScatterChart({ chartName, data, xAxis }) {
   const optionsHighChart = {

@@ -1,17 +1,11 @@
 import React from 'react';
 
 import Highcharts from 'highcharts';
-import DarkUnica from 'highcharts/themes/brand-dark';
-import HighchartsExporting from 'highcharts/modules/exporting';
 import HighchartsReact from 'highcharts-react-official';
-import HighchartsBoost from 'highcharts/modules/boost';
-import HighchartsZoom from 'highcharts/modules/mouse-wheel-zoom';
 
-DarkUnica(Highcharts);
-
-HighchartsBoost(Highcharts);
-HighchartsExporting(Highcharts);
-HighchartsZoom(Highcharts);
+// Module imports (e.g., Highcharts modules for exporting, accessibility, etc.) were removed temporarily
+// to troubleshoot an issue with chart rendering. Once the issue is resolved, these modules should be
+// reintroduced to restore full functionality. Ensure to test thoroughly after re-adding the modules.
 
 export default function LineChart({ chartName, data, xAxis }) {
   const optionsHighChart = {
